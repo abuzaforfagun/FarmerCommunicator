@@ -1,0 +1,30 @@
+﻿@model FarmmerCommunicatorFinal.ViewModels.SingleBuyerRequests
+@{
+    ViewBag.Title = "UserRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Requests</h2>
+<a href="RequestProduct" class="btn btn-primary">Request New Product</a>
+<hr/>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var request in @Model.Requests)
+        {
+            <tr>
+                <td>@request.Title</td>
+                <td>@request.Description</td>
+                <td>@request.AddedDate</td>
+                <td><a href="/Buyer/RemoveRequest?id=@request.Id">Remove</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

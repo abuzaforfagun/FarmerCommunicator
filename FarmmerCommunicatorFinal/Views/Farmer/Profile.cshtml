@@ -1,0 +1,42 @@
+﻿@model FarmmerCommunicatorFinal.ViewModels.FarmerProfile
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Farmer.Name | Rate: @Model.Products[0].FarmerRate</h2>
+
+<table class="table table-striped" id="tblList">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Farmer</th>
+            <th>Mobile</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td><a href="~/@product.ImageUrl" target="_blank"><img width="150" height="150" src="~/@product.ImageUrl" /></a></td>
+                <td>@product.Price</td>
+                <td>@product.Description</td>
+                <td>@product.Farmer.Name</td>
+                <td>@product.Farmer.Mobile</td>
+                
+                <td>
+                    @if (User.IsInRole("Buyer"))
+                    {
+                        <a href="Category/DealRequest?Id=@product.Id">Request for Deal</a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

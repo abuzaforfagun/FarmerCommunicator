@@ -1,0 +1,86 @@
+﻿@model FarmmerCommunicatorFinal.ViewModels.BuyerDashboardViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Rate: @Model.Rate</h2>
+
+<div class="col-md-12">
+    <label>
+        @Model.Message
+    </label>
+    <div class="row">
+        <a href="/Buyer/RequestProduct" class="btn btn-primary">Request Product</a>
+    </div>
+    <h2>Current Deals</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Farmer</th>
+                <th>Mobile</th>
+                <th>Rate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var deal in Model.CurrentDeals)
+            {
+                <tr>
+                    <td>@deal.Product.Name</td>
+                    <td><a href="~/@deal.Product.ImageUrl" target="_blank"><img width="150" height="150" src="~/@deal.Product.ImageUrl" /></a></td>
+                    <td>@deal.Product.Price</td>
+                    <td>@deal.Product.Description</td>
+                    <td>@deal.Product.Farmer.Name</td>
+                    <td>@deal.Product.Farmer.Mobile</td>
+                    <td>@deal.Product.FarmerRate</td>
+                    <td>
+                        @if (User.IsInRole("Buyer"))
+                        {
+                            <a href="Buyer/Rate?Id=@deal.Id">Rate Now</a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>Deals waiting for approval</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Farmer</th>
+                <th>Mobile</th>
+                <th>Rate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var deal in Model.DealsWaitingForApproval)
+            {
+                <tr>
+                    <td>@deal.Product.Name</td>
+                    <td><a href="~/@deal.Product.ImageUrl" target="_blank"><img width="150" height="150" src="~/@deal.Product.ImageUrl" /></a></td>
+                    <td>@deal.Product.Price</td>
+                    
+                    <td>@deal.Product.Description</td>
+                    <td>@deal.Product.Farmer.Name</td>
+                    <td>@deal.Product.Farmer.Mobile</td>
+                    <td>@deal.Product.FarmerRate</td>
+                    <td>
+                       
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,67 @@
+﻿@model FarmmerCommunicatorFinal.ViewModels.RateUserViewModel
+@{
+    ViewBag.Title = "Rate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rate</h2>
+<label>@Model.Message</label>
+
+@using (Html.BeginForm("SaveRate", "Buyer"))
+{
+    @Html.HiddenFor(m => m.Rate.DealId, new { @value = Model.Rate.DealId })
+    <div class="row">
+        <div class="col-md-3">
+            <label>Product Name</label>
+        </div>
+        <div class="col-md-4">
+            <label>@Model.Rate.Deal.Product.Name</label>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>Type</label>
+        </div>
+        <div class="col-md-4">
+            <label>@Model.Rate.Deal.Product.Category.Name</label>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>Farmer Name</label>
+        </div>
+        <div class="col-md-4">
+            <label>@Model.User.Name</label>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>Farmer Mobile</label>
+        </div>
+        <div class="col-md-4">
+            <label>@Model.User.Mobile</label>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.Rate.RateValue)
+        </div>
+        <div class="col-md-4">
+            @Html.DropDownListFor(m => m.Rate.RateValue, new SelectList(Model.RateValues), "Out of 5", new { @class = "form-control" })
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <button id="btnSaveRate" class="btn btn-primary">Save</button>
+}

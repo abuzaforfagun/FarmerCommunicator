@@ -1,0 +1,59 @@
+﻿@model FarmmerCommunicatorFinal.ViewModels.SingleCategoryProductListViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Available Products in @Model.Category.Name</h2>
+
+<div class="col-md-12">
+    
+        @if (TempData["Message"] != null)
+        {
+            <label>@TempData["Message"]</label>
+        }
+    <table id="tblList" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Farmer</th>
+                <th>Mobile</th>
+                <th>Rate</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td><a href="~/@product.ImageUrl" target="_blank"><img width="150" height="150" src="~/@product.ImageUrl" /></a></td>
+                    <td>@product.Price</td>
+                    <td>@product.Description</td>
+                    <td><a href="Farmer/Profile?id=@product.Farmer.Id">@product.Farmer.Name</a></td>
+                    <td>@product.Farmer.Mobile</td>
+                    <td>@product.FarmerRate</td>
+                    <td>
+                        @if (User.IsInRole("Buyer"))
+                        {
+                            <a href="Category/DealRequest?Id=@product.Id">Request for Deal</a>
+                        }
+                    
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/datatable")
+    <script>
+        $(document).ready(function () {
+            $("#tblList").DataTable();
+        });
+</script>
+}

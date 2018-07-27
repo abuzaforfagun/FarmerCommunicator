@@ -1,0 +1,28 @@
+﻿@model FarmmerCommunicatorFinal.ViewModels.BuyerRequestProductViewModel
+@{
+    ViewBag.Title = "RequestProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Request Product</h2>
+
+<div class="col-md-12">
+@using (Html.BeginForm("SaveRequest", "Buyer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.BuyerRequest.CategoryId)
+        @Html.DropDownListFor(m => m.BuyerRequest.CategoryId, new SelectList(Model.Categories, "Id", "Name"), "Select category", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.BuyerRequest.Title)
+        @Html.TextBoxFor(m => m.BuyerRequest.Title, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.BuyerRequest.Description)
+        @Html.TextAreaFor(m => m.BuyerRequest.Description, new { @class = "form-control" })
+    </div>
+    <button type="submit" id="btnAddProduct" class="btn btn-primary">Save</button>
+}
+</div>

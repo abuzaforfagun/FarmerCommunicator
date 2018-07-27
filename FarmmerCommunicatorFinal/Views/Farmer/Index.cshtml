@@ -1,0 +1,118 @@
+﻿@model FarmmerCommunicatorFinal.ViewModels.FarmerDashboardViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+@Html.ActionLink("Add New Item", "Add", "Farmer", new { @class = "btn btn-primary" })
+<hr/>
+
+<label>@Model.Message</label>
+
+<hr/>
+<h2>Buyers Interested In...</h2>
+
+<div class="col-md-12">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Image</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Buyer</th>
+                <th>Buyer Mobile</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var deal in Model.WaitingForApproval)
+            {
+                <tr>
+                    <td>@deal.Product.Name</td>
+                    <td><img width="150" height="150" src="~/@deal.Product.ImageUrl" /></td>
+                    <td>@deal.Product.Category.Name</td>
+                    <td>@deal.Product.Price</td>
+                    <td>@deal.Product.Description</td>
+                    <td>@deal.Buyer.Name</td>
+                    <td>@deal.Buyer.Mobile</td>
+                    <td><a href="Farmer/Approve?Id=@deal.Id">Approve</a> <a href="/Farmer/DeleteDeal?Id=@deal.Id">Delete</a> </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<h2>Recent Deals...</h2>
+
+<div class="col-md-12">
+    <table class="table table-bordered">
+        <thead>
+        <th>Product Name</th>
+        <th>Image</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Buyer</th>
+        <th>Buyer Mobile</th>
+        <th>Action</th>
+
+        </thead>
+        <tbody>
+            @foreach (var deal in Model.CurrentDeals)
+            {
+                <tr>
+                    <td>@deal.Product.Name</td>
+                    <td><img width="150" height="150" src="~/@deal.Product.ImageUrl" /></td>
+                    <td>@deal.Product.Category.Name</td>
+                    <td>@deal.Product.Description</td>
+                    <td>@deal.Buyer.Name</td>
+                    <td>@deal.Buyer.Mobile</td>
+                    <td><a href="Farmer/Rate?id=@deal.Id">Rate</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<h2>All Products</h2>
+
+<div class="col-md-12">
+    <table class="table table-bordered">
+        <thead>
+        <th>Product Name</th>
+        <th>Image</th>
+        <th>Type</th>
+        <th>Description</th>
+        
+        <th>Action</th>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var product in Model.AllProducts)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td><img width="150" height="150" src="~/@product.ImageUrl" /></td>
+                    <td>@product.Category.Name</td>
+                    <td>@product.Description</td>
+                
+                    <td>
+                        @if (product.IsDisplay == 0)
+                        {
+
+                            <a href="/Farmer/Unpublish?id=@product.Id">Unpublish</a>
+                        }
+                        else
+                        {
+                            <a href="/Farmer/Publish?id=@product.Id">Publish</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
