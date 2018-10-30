@@ -20,7 +20,6 @@ namespace FarmmerCommunicatorFinal.Controllers
 
         public FarmerController()
         {
-
             _context = new ApplicationDbContext();
         }
 
@@ -117,12 +116,9 @@ namespace FarmmerCommunicatorFinal.Controllers
                 {
                     var unique = DateTime.Now.Ticks;
                     string pic = unique+"_" +System.IO.Path.GetFileName(file.FileName);
-                    string path = System.IO.Path.Combine(
-                                           Server.MapPath("~/Content/Images/Products"), pic);
-                    // file is uploaded
+                    string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images/Products"), pic);
                     file.SaveAs(path);
                     productViewModel.Product.ImageUrl = "Content/Images/Products/"+pic;
-
                 }
 
                 _context.Products.Add(productViewModel.Product);

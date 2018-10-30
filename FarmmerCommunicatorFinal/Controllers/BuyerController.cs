@@ -68,11 +68,7 @@ namespace FarmmerCommunicatorFinal.Controllers
             viewModel.User = _context.Users.Single(u => u.Id == viewModel.Rate.Deal.FarmerId);
             viewModel.Rate.UserId = viewModel.User.Id;
             viewModel.Rate.User = viewModel.User;
-
-            //var _rate = _context.Rates.SingleOrDefault(r => r.UserId == viewModel.User.Id);
             var _rate = _context.Rates.SingleOrDefault(r => r.UserId == viewModel.User.Id && r.DealId == viewModel.Rate.DealId);
-            //var _rate = _context.Rates.Where(r => r.UserId == viewModel.User.Id).Where(r => r.DealId == viewModel.Rate.DealId).ToList();
-
             if (_rate == null)
             {
                 _context.Rates.Add(viewModel.Rate);
